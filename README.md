@@ -94,10 +94,6 @@ A stream may not play because it is offline, geo-blocked, blocked by CORS, or se
 
 **Optional CORS proxy.** There is no backend by default. If you need one, run your own small proxy (for example a Cloudflare Worker) that adds `Access-Control-Allow-Origin`, and prefix stream URLs with it in `src/api/iptv.ts`. Only proxy streams you are allowed to access.
 
-## Disclaimer
-
-IPTVio does not host, store, or control any video content. All streams are public third-party links, and their availability is not guaranteed.
-
 ## Roadmap
 
 Features and improvements, maybe :
@@ -111,6 +107,8 @@ Features and improvements, maybe :
 - Automatically hide streams that failed recently, with a "report broken stream" shortcut
 - Installable PWA with offline shell and a remembered last-watched channel
 - Desktop app (Electron)
+- Responsive Design
+- Removable recent watched
 
 
 **Engineering**
@@ -119,3 +117,7 @@ Features and improvements, maybe :
 - Add unit tests for the catalog join and stores (Vitest) and end-to-end tests (Playwright)
 - Host the flag images locally instead of loading them from a CDN, and add a CI workflow for lint and build
 - Optional proxy or edge function to work around CORS and mixed-content streams
+
+## Disclaimer
+
+IPTVio does not host, store, or control any video content. All streams are public third-party links, and their availability is not guaranteed.
