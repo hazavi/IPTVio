@@ -12,6 +12,7 @@ import Sheet from '@/components/ui/Sheet.vue'
 const catalog = useCatalogStore()
 const { isDark } = useTheme()
 const sheetOpen = ref(false)
+const logoUrl = `${import.meta.env.BASE_URL}logo.png`
 
 watchEffect(() => document.documentElement.classList.toggle('dark', isDark.value))
 onMounted(() => catalog.load())
@@ -22,7 +23,7 @@ onMounted(() => catalog.load())
     <header class="flex h-16 shrink-0 items-center justify-between px-4 md:px-6">
       <RouterLink to="/" class="flex items-center gap-3 rounded-xl" aria-label="IPTVio home">
         <span class="grid size-10 place-items-center rounded-xl bg-background nm-raised-sm">
-          <img src="/logo.png" alt="" class="size-6" />
+          <img :src="logoUrl" alt="" class="size-6" />
         </span>
         <span class="text-lg font-bold tracking-tight">
           IPTV<span class="text-primary">io</span>

@@ -6,6 +6,8 @@
 
 A soft, tactile web player for live TV. Pick a country, tap a channel, and watch free public streams from around the world, right in your browser.
 
+[Open IPTVio](https://hazavi.github.io/IPTVio/)
+
 [![Vue 3](https://img.shields.io/badge/Vue-3-42b883?logo=vuedotjs&logoColor=white)](https://vuejs.org/)
 [![Vite](https://img.shields.io/badge/Vite-646cff?logo=vite&logoColor=white)](https://vite.dev/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-3178c6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
@@ -58,6 +60,10 @@ Then open the URL printed in the terminal (usually http://localhost:5173).
 | `npm run preview` | Preview the production build        |
 | `npm run lint`    | Lint with ESLint                    |
 | `npm run format`  | Format with Prettier                |
+
+## Deployment
+
+Pushes to `main` deploy the production build to GitHub Pages through `.github/workflows/pages.yml`. In the repository's **Settings → Pages**, set **Build and deployment → Source** to **GitHub Actions**. The app is served from `/IPTVio/`; shared channel links also load through the included `404.html` fallback.
 
 ## Tech stack
 

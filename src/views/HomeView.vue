@@ -8,6 +8,7 @@ import CountryFlag from '@/components/CountryFlag.vue'
 
 const player = usePlayerStore()
 const countries = useCountriesStore()
+const logoUrl = `${import.meta.env.BASE_URL}logo.png`
 const hint = computed(() =>
   countries.selected
     ? `Pick a channel from ${countries.selected.name} to start watching.`
@@ -20,7 +21,7 @@ const hint = computed(() =>
     <div class="space-y-5">
       <div class="mx-auto grid size-32 place-items-center rounded-full nm-raised">
         <div class="grid size-24 place-items-center rounded-full nm-inset">
-          <img src="/logo.png" alt="" class="size-14" />
+          <img :src="logoUrl" alt="" class="size-14" />
         </div>
       </div>
       <span
