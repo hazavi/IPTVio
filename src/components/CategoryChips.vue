@@ -36,7 +36,7 @@ function onWheel(e: WheelEvent) {
 }
 
 const arrow =
-  'absolute top-1/2 z-10 grid size-7 -translate-y-1/2 place-items-center rounded-full border bg-card text-muted-foreground shadow-sm transition-colors duration-150 hover:bg-accent hover:text-foreground'
+  'absolute top-1/2 z-10 grid size-7 -translate-y-1/2 place-items-center rounded-full bg-background text-muted-foreground nm-raised-xs transition-shadow duration-200 hover:text-primary active:nm-inset-sm'
 </script>
 
 <template>
@@ -55,7 +55,7 @@ const arrow =
       ref="scroller"
       role="group"
       aria-label="Categories"
-      class="flex gap-1.5 overflow-x-auto scroll-smooth [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+      class="flex gap-2 overflow-x-auto scroll-smooth p-1.5 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
       @wheel="onWheel"
     >
       <button
@@ -65,9 +65,8 @@ const arrow =
         :aria-pressed="model === chip.id"
         :class="
           cn(
-            'shrink-0 rounded-full px-3 py-1 text-xs font-medium text-muted-foreground transition-colors duration-150 hover:bg-accent hover:text-foreground',
-            model === chip.id &&
-              'bg-foreground text-background hover:bg-foreground hover:text-background',
+            'shrink-0 rounded-full px-3 py-1 text-xs font-medium text-muted-foreground nm-raised-xs transition-shadow duration-200 hover:text-foreground',
+            model === chip.id && 'nm-inset-sm text-primary hover:text-primary',
           )
         "
         @click="model = chip.id"

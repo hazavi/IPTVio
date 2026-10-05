@@ -24,7 +24,7 @@ const initials = computed(() =>
   <div
     :class="
       cn(
-        'grid size-10 shrink-0 place-items-center overflow-hidden rounded-lg border bg-white',
+        'grid size-10 shrink-0 place-items-center overflow-hidden rounded-xl bg-white ring-1 ring-black/5',
         $props.class,
       )
     "

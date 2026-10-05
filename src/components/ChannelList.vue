@@ -62,7 +62,7 @@ watch(source, () => scrollTo(0))
         <Button
           variant="outline"
           size="icon"
-          class="size-9"
+          class="size-10"
           :disabled="!countries.selected"
           :aria-pressed="channels.favoritesOnly"
           aria-label="Show favorites only"
@@ -75,7 +75,7 @@ watch(source, () => scrollTo(0))
       <CategoryChips v-if="countries.selected" v-model="channels.category" :items="chips" />
     </div>
 
-    <div v-if="catalog.loading" class="space-y-1" aria-busy="true" aria-label="Loading channels">
+    <div v-if="catalog.loading" class="space-y-2" aria-busy="true" aria-label="Loading channels">
       <Skeleton v-for="i in 8" :key="i" class="h-12" />
     </div>
 
@@ -86,9 +86,11 @@ watch(source, () => scrollTo(0))
 
     <div
       v-else-if="!countries.selected"
-      class="flex flex-col items-center gap-2 px-4 py-10 text-center text-sm text-muted-foreground"
+      class="flex flex-col items-center gap-3 px-4 py-8 text-center text-sm text-muted-foreground"
     >
-      <TvMinimal class="size-8" />
+      <span class="grid size-14 place-items-center rounded-full nm-inset">
+        <TvMinimal class="size-6" />
+      </span>
       Select a country to browse its channels.
     </div>
 
@@ -99,7 +101,13 @@ watch(source, () => scrollTo(0))
       No channels match your filters.
     </div>
 
-    <div v-else v-bind="containerProps" class="min-h-0 flex-1" role="list" aria-label="Channels">
+    <div
+      v-else
+      v-bind="containerProps"
+      class="min-h-0 flex-1 px-1.5"
+      role="list"
+      aria-label="Channels"
+    >
       <div v-bind="wrapperProps">
         <div v-for="item in list" :key="item.data.id" role="listitem" class="h-13">
           <ChannelCard

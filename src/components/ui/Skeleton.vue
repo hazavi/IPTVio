@@ -6,5 +6,8 @@ defineProps<{ class?: HTMLAttributes['class'] }>()
 </script>
 
 <template>
-  <div :class="cn('animate-pulse rounded-xl bg-muted', $props.class)" aria-hidden="true" />
+  <div
+    :class="cn('animate-pulse rounded-xl bg-muted nm-inset-sm', $props.class)"
+    aria-hidden="true"
+  />
 </template>

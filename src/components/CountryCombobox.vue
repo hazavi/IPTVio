@@ -46,10 +46,10 @@ function onSelect(code: unknown) {
 </script>
 
 <template>
-  <Skeleton v-if="catalog.loading && !store.countries.length" class="h-9 w-full" />
+  <Skeleton v-if="catalog.loading && !store.countries.length" class="h-10 w-full" />
   <PopoverRoot v-else v-model:open="open">
     <PopoverTrigger
-      class="flex h-9 w-full items-center gap-2 rounded-xl border bg-card px-3 text-left text-sm transition-colors duration-150 hover:bg-accent"
+      class="flex h-10 w-full items-center gap-2 rounded-xl bg-background px-3 text-left text-sm nm-raised-sm transition-shadow duration-200 hover:text-primary data-[state=open]:nm-inset-sm"
       aria-label="Select country"
     >
       <template v-if="store.selected">
@@ -67,7 +67,7 @@ function onSelect(code: unknown) {
       <PopoverContent
         align="start"
         :side-offset="6"
-        class="anim-pop z-50 w-(--reka-popover-trigger-width) min-w-64 overflow-hidden rounded-xl border bg-card shadow-lg"
+        class="anim-pop z-50 w-(--reka-popover-trigger-width) min-w-64 rounded-2xl bg-background p-1.5 nm-raised"
       >
         <ListboxRoot
           ref="listbox"
@@ -75,7 +75,7 @@ function onSelect(code: unknown) {
           highlight-on-hover
           @update:model-value="onSelect"
         >
-          <div class="flex items-center gap-2 border-b px-3">
+          <div class="flex items-center gap-2 rounded-xl px-3 nm-inset-sm">
             <Search class="size-4 text-muted-foreground" />
             <ListboxFilter
               v-model="query"
@@ -84,12 +84,12 @@ function onSelect(code: unknown) {
               class="h-10 w-full bg-transparent text-sm outline-none placeholder:text-muted-foreground"
             />
           </div>
-          <ListboxContent class="max-h-72 overflow-y-auto p-1">
+          <ListboxContent class="mt-1.5 max-h-72 overflow-y-auto p-1.5">
             <ListboxItem
               v-for="c in results"
               :key="c.code"
               :value="c.code"
-              class="flex items-center gap-2 rounded-lg px-2 py-2 text-sm outline-none data-highlighted:bg-accent"
+              class="flex items-center gap-2 rounded-xl px-2.5 py-2 text-sm outline-none data-highlighted:nm-raised-xs"
             >
               <span class="text-base leading-none" aria-hidden="true">{{ c.flag }}</span>
               <span class="flex-1 truncate">{{ c.name }}</span>

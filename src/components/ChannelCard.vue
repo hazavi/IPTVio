@@ -18,24 +18,31 @@ const category = computed(() => {
 </script>
 
 <template>
-  <div class="group relative h-13">
+  <div class="group relative h-13 py-1">
     <RouterLink
       :to="{ name: 'watch', params: { countryCode: channel.country, channelId: channel.id } }"
       :aria-current="active ? 'true' : undefined"
       :class="
         cn(
-          'flex h-full items-center gap-2.5 rounded-lg px-2 pr-10 transition-colors duration-150 hover:bg-accent',
-          active && 'bg-primary/10 hover:bg-primary/10',
+          'flex h-full items-center gap-2.5 rounded-xl px-2 pr-10 transition-shadow duration-200 hover:nm-raised-xs',
+          active && 'nm-inset-sm hover:nm-inset-sm',
         )
       "
       @click="emit('select')"
     >
-      <ChannelLogo :name="channel.name" :src="channel.logo" class="size-9" />
+      <ChannelLogo :name="channel.name" :src="channel.logo" class="size-8" />
       <span class="min-w-0 flex-1">
-        <span :class="cn('block truncate text-sm font-medium', active && 'text-primary')">{{
-          channel.name
-        }}</span>
-        <span v-if="category" class="block truncate text-xs text-muted-foreground">{{
+        <span
+          :class="cn('flex items-center gap-1.5 text-sm font-medium', active && 'text-primary')"
+        >
+          <span
+            v-if="active"
+            class="size-1.5 shrink-0 rounded-full bg-primary shadow-[0_0_6px_1px_var(--primary)]"
+            aria-hidden="true"
+          />
+          <span class="truncate">{{ channel.name }}</span>
+        </span>
+        <span v-if="category" class="block truncate text-[11px] text-muted-foreground">{{
           category
         }}</span>
       </span>
@@ -44,7 +51,7 @@ const category = computed(() => {
       type="button"
       :class="
         cn(
-          'absolute top-1/2 right-2 grid size-8 -translate-y-1/2 place-items-center rounded-lg text-muted-foreground transition duration-150 hover:text-foreground',
+          'absolute top-1/2 right-2.5 grid size-7 -translate-y-1/2 place-items-center rounded-full text-muted-foreground transition duration-200 hover:text-foreground',
           !isFavorite &&
             'pointer-fine:opacity-0 pointer-fine:group-hover:opacity-100 pointer-fine:focus-visible:opacity-100',
         )

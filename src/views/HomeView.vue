@@ -15,11 +15,24 @@ const hint = computed(() =>
 </script>
 
 <template>
-  <div class="mx-auto flex max-w-4xl flex-col items-center gap-6 pt-4 text-center md:pt-12">
-    <div class="space-y-3">
-      <img src="/logo.png" alt="" class="mx-auto size-16" />
-      <h1 class="text-2xl font-semibold tracking-tight text-balance md:text-3xl">
-        Live TV from around the world
+  <div class="mx-auto flex max-w-4xl flex-col items-center gap-10 pt-6 text-center md:pt-14">
+    <div class="space-y-5">
+      <div class="mx-auto grid size-32 place-items-center rounded-full nm-raised">
+        <div class="grid size-24 place-items-center rounded-full nm-inset">
+          <img src="/logo.png" alt="" class="size-14" />
+        </div>
+      </div>
+      <span
+        class="mx-auto inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs font-semibold tracking-wider text-primary uppercase nm-inset-sm"
+      >
+        <span
+          class="size-1.5 animate-pulse rounded-full bg-primary shadow-[0_0_8px_2px_var(--primary)]"
+          aria-hidden="true"
+        />
+        On air
+      </span>
+      <h1 class="text-3xl font-bold tracking-tight text-balance md:text-4xl">
+        Live TV from <span class="text-primary">around the world</span>
       </h1>
       <p class="text-sm text-muted-foreground">{{ hint }}</p>
     </div>
@@ -27,15 +40,15 @@ const hint = computed(() =>
     <section v-if="player.recent.length" class="w-full text-left" aria-labelledby="recent-heading">
       <h2
         id="recent-heading"
-        class="mb-2 flex items-center gap-2 text-sm font-medium text-muted-foreground"
+        class="mb-3 flex items-center gap-2 text-sm font-medium text-muted-foreground"
       >
         <Clock class="size-4" /> Recently watched
       </h2>
-      <ul class="grid grid-cols-1 gap-2 sm:grid-cols-2 lg:grid-cols-3">
+      <ul class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
         <li v-for="c in player.recent" :key="c.id">
           <RouterLink
             :to="{ name: 'watch', params: { countryCode: c.country, channelId: c.id } }"
-            class="flex items-center gap-2.5 rounded-xl border bg-card p-2 transition-colors duration-150 hover:bg-accent"
+            class="flex items-center gap-3 rounded-2xl bg-background p-3 nm-raised-sm transition-shadow duration-200 hover:text-primary active:nm-inset-sm"
           >
             <ChannelLogo :name="c.name" :src="c.logo" />
             <span class="truncate text-sm font-medium">{{ c.name }}</span>

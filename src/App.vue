@@ -19,20 +19,22 @@ onMounted(() => catalog.load())
 
 <template>
   <div class="flex h-dvh flex-col">
-    <header
-      class="flex h-12 shrink-0 items-center justify-between border-b bg-background/80 px-3 backdrop-blur md:px-4"
-    >
-      <RouterLink to="/" class="flex items-center gap-2 rounded-lg" aria-label="IPTVio home">
-        <img src="/logo.png" alt="" class="size-7" />
-        <span class="text-base font-semibold tracking-tight">IPTVio</span>
+    <header class="flex h-16 shrink-0 items-center justify-between px-4 md:px-6">
+      <RouterLink to="/" class="flex items-center gap-3 rounded-xl" aria-label="IPTVio home">
+        <span class="grid size-10 place-items-center rounded-xl bg-background nm-raised-sm">
+          <img src="/logo.png" alt="" class="size-6" />
+        </span>
+        <span class="text-lg font-bold tracking-tight">
+          IPTV<span class="text-primary">io</span>
+        </span>
       </RouterLink>
-      <div class="flex items-center gap-1">
+      <div class="flex items-center gap-3">
         <a
           href="https://github.com/hazavi/IPTVio"
           target="_blank"
           rel="noopener noreferrer"
           aria-label="View source on GitHub"
-          class="inline-flex size-9 items-center justify-center rounded-xl transition-colors duration-150 hover:bg-accent"
+          class="inline-flex size-10 items-center justify-center rounded-full bg-background text-muted-foreground nm-raised-sm transition-shadow duration-200 hover:text-foreground active:nm-inset-sm"
         >
           <svg viewBox="0 0 24 24" class="size-5" fill="currentColor" aria-hidden="true">
             <path
@@ -44,23 +46,21 @@ onMounted(() => catalog.load())
       </div>
     </header>
 
-    <div class="grid min-h-0 flex-1 md:grid-cols-[19rem_1fr]">
+    <div class="grid min-h-0 flex-1 gap-5 px-4 pb-4 md:grid-cols-[20rem_1fr] md:px-6 md:pb-6">
       <aside
-        class="hidden min-h-0 flex-col gap-2.5 border-r bg-muted/40 p-3 md:flex"
+        class="hidden min-h-0 flex-col gap-3 rounded-3xl bg-background p-4 nm-raised md:flex"
         aria-label="Channels"
       >
         <CountryCombobox />
         <ChannelList class="min-h-0 flex-1" />
       </aside>
 
-      <main class="min-h-0 overflow-y-auto p-3 pb-16 md:p-4 md:pb-4">
+      <main class="-m-4 min-h-0 overflow-y-auto p-4 pb-20 md:pb-4">
         <RouterView />
       </main>
     </div>
 
-    <div
-      class="fixed inset-x-0 bottom-0 z-30 border-t bg-background/80 p-2 backdrop-blur md:hidden"
-    >
+    <div class="fixed inset-x-0 bottom-0 z-30 bg-background/90 p-3 backdrop-blur md:hidden">
       <Button class="w-full" @click="sheetOpen = true"><List /> Browse channels</Button>
     </div>
 

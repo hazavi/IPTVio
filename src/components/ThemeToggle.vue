@@ -12,8 +12,9 @@ function toggle() {
 
 <template>
   <Button
-    variant="ghost"
+    variant="outline"
     size="icon"
+    class="rounded-full"
     :aria-label="isDark ? 'Switch to light mode' : 'Switch to dark mode'"
     @click="toggle"
   >

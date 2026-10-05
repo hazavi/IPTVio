@@ -59,7 +59,7 @@ function go(offset: number) {
         @next-channel="go(1)"
       />
 
-      <div class="space-y-3 rounded-2xl border bg-card p-3">
+      <div class="space-y-3 rounded-3xl bg-background p-4 nm-raised">
         <section class="flex items-center gap-3" aria-label="Channel info">
           <ChannelLogo :name="channel.name" :src="channel.logo" class="size-11" />
           <div class="min-w-0 flex-1 space-y-1">
@@ -78,7 +78,7 @@ function go(offset: number) {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Open channel website"
-              class="inline-flex size-9 items-center justify-center rounded-xl border bg-card transition-colors duration-150 hover:bg-accent"
+              class="inline-flex size-10 items-center justify-center rounded-xl bg-background text-muted-foreground nm-raised-sm transition-shadow duration-200 hover:text-primary active:nm-inset-sm"
             >
               <ExternalLink class="size-4" />
             </a>
@@ -97,7 +97,7 @@ function go(offset: number) {
         <section
           v-if="channel.streams.length > 1"
           aria-labelledby="streams-heading"
-          class="space-y-2 border-t pt-3"
+          class="space-y-2.5 pt-3"
         >
           <h2
             id="streams-heading"
@@ -105,7 +105,7 @@ function go(offset: number) {
           >
             Streams
           </h2>
-          <div class="flex flex-wrap gap-2">
+          <div class="flex flex-wrap gap-2.5">
             <button
               v-for="(s, i) in channel.streams"
               :key="s.url"
@@ -113,9 +113,8 @@ function go(offset: number) {
               :aria-pressed="player.streamIndex === i"
               :class="
                 cn(
-                  'rounded-xl border px-3 py-1.5 text-xs font-medium transition-colors duration-150 hover:bg-accent',
-                  player.streamIndex === i &&
-                    'border-transparent bg-primary text-primary-foreground hover:bg-primary/90',
+                  'rounded-xl px-3 py-1.5 text-xs font-medium text-muted-foreground nm-raised-xs transition-shadow duration-200 hover:text-foreground',
+                  player.streamIndex === i && 'nm-inset-sm text-primary hover:text-primary',
                 )
               "
               @click="player.streamIndex = i"
