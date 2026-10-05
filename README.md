@@ -1,6 +1,22 @@
+<div align="center">
+
+<img src="public/logo.png" alt="IPTVio logo" width="96" height="96" />
+
 # IPTVio
 
 A modern, minimal web player for live TV. Pick a country, choose a channel, and start watching, right in your browser.
+
+[![Vue 3](https://img.shields.io/badge/Vue-3-42b883?logo=vuedotjs&logoColor=white)](https://vuejs.org/)
+[![Vite](https://img.shields.io/badge/Vite-646cff?logo=vite&logoColor=white)](https://vite.dev/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-3178c6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![Pinia](https://img.shields.io/badge/Pinia-ffd859?logo=pinia&logoColor=black)](https://pinia.vuejs.org/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4-06b6d4?logo=tailwindcss&logoColor=white)](https://tailwindcss.com/)
+[![hls.js](https://img.shields.io/badge/hls.js-HLS_playback-e8590c)](https://github.com/video-dev/hls.js)
+[![Reka UI](https://img.shields.io/badge/Reka_UI-42b883)](https://reka-ui.com/)
+[![Lucide](https://img.shields.io/badge/Lucide-icons-f56565?logo=lucide&logoColor=white)](https://lucide.dev/)
+[![VueUse](https://img.shields.io/badge/VueUse-4fc08d?logo=vueuse&logoColor=white)](https://vueuse.org/)
+
+</div>
 
 Channel data comes from the public [iptv-org API](https://iptv-org.github.io/). No backend or account is required.
 
@@ -48,7 +64,6 @@ Then open the URL printed in the terminal (usually http://localhost:5173).
 - [Tailwind CSS](https://tailwindcss.com/) v4 with [Reka UI](https://reka-ui.com/) primitives
 - [Lucide](https://lucide.dev/) icons
 - [hls.js](https://github.com/video-dev/hls.js) for playback and [VueUse](https://vueuse.org/) for utilities
-
 
 ## How it works
 
