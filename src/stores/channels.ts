@@ -17,25 +17,28 @@ export const useChannelsStore = defineStore('channels', () => {
     catalog.channels.filter((c) => c.country === countries.selectedCode),
   )
 
+  // Favorites mode spans every country.
+  const pool = computed(() =>
+    favoritesOnly.value ? catalog.channels.filter((c) => favorites.has(c.id)) : inCountry.value,
+  )
+
   const availableCategories = computed(() => {
-    const ids = new Set(inCountry.value.flatMap((c) => c.categories))
+    const ids = new Set(pool.value.flatMap((c) => c.categories))
     return catalog.categories.filter((c) => ids.has(c.id))
   })
 
   const filtered = computed(() => {
     const q = search.value.trim().toLowerCase()
-    return inCountry.value.filter(
+    return pool.value.filter(
       (c) =>
         (!q || c.name.toLowerCase().includes(q)) &&
-        (!category.value || c.categories.includes(category.value)) &&
-        (!favoritesOnly.value || favorites.has(c.id)),
+        (!category.value || c.categories.includes(category.value)),
     )
   })
 
   function resetFilters() {
     search.value = ''
     category.value = null
-    favoritesOnly.value = false
   }
 
   return { search, category, favoritesOnly, inCountry, availableCategories, filtered, resetFilters }

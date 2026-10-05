@@ -26,6 +26,7 @@ watch(searchInput, applySearch)
 const activeId = computed(() => (route.name === 'watch' ? String(route.params.channelId) : null))
 const source = computed(() => channels.filtered)
 const chips = computed(() => [{ id: null, name: 'All' }, ...channels.availableCategories])
+const browsable = computed(() => channels.favoritesOnly || !!countries.selected)
 
 const { list, containerProps, wrapperProps, scrollTo } = useVirtualList(source, {
   itemHeight: 52,
@@ -35,11 +36,17 @@ const { list, containerProps, wrapperProps, scrollTo } = useVirtualList(source, 
 watch(
   () => countries.selectedCode,
   () => {
+    if (channels.favoritesOnly) return
     channels.resetFilters()
     searchInput.value = ''
   },
 )
 watch(source, () => scrollTo(0))
+
+function toggleFavorites() {
+  channels.favoritesOnly = !channels.favoritesOnly
+  channels.category = null
+}
 </script>
 
 <template>
@@ -56,23 +63,31 @@ watch(source, () => scrollTo(0))
             placeholder="Search channels"
             aria-label="Search channels"
             class="pl-9"
-            :disabled="!countries.selected"
+            :disabled="!browsable"
           />
         </div>
         <Button
           variant="outline"
           size="icon"
           class="size-10"
-          :disabled="!countries.selected"
           :aria-pressed="channels.favoritesOnly"
-          aria-label="Show favorites only"
-          @click="channels.favoritesOnly = !channels.favoritesOnly"
+          aria-label="Show favorites from all countries"
+          title="Favorites from all countries"
+          @click="toggleFavorites"
         >
           <Star :class="channels.favoritesOnly && 'fill-amber-400 text-amber-400'" />
         </Button>
       </div>
 
-      <CategoryChips v-if="countries.selected" v-model="channels.category" :items="chips" />
+      <p
+        v-if="channels.favoritesOnly"
+        class="flex items-center gap-1.5 px-1 text-xs font-medium text-muted-foreground"
+      >
+        <Star class="size-3.5 fill-amber-400 text-amber-400" />
+        Favorites from all countries
+      </p>
+
+      <CategoryChips v-if="browsable" v-model="channels.category" :items="chips" />
     </div>
 
     <div v-if="catalog.loading" class="space-y-2" aria-busy="true" aria-label="Loading channels">
@@ -85,7 +100,7 @@ watch(source, () => scrollTo(0))
     </div>
 
     <div
-      v-else-if="!countries.selected"
+      v-else-if="!browsable"
       class="flex flex-col items-center gap-3 px-4 py-8 text-center text-sm text-muted-foreground"
     >
       <span class="grid size-14 place-items-center rounded-full nm-inset">
@@ -98,7 +113,11 @@ watch(source, () => scrollTo(0))
       v-else-if="!channels.filtered.length"
       class="px-4 py-6 text-center text-sm text-muted-foreground"
     >
-      No channels match your filters.
+      {{
+        channels.favoritesOnly && !channels.search && !channels.category
+          ? 'No favorites yet. Tap the star on a channel to add it.'
+          : 'No channels match your filters.'
+      }}
     </div>
 
     <div
@@ -113,6 +132,7 @@ watch(source, () => scrollTo(0))
           <ChannelCard
             :channel="item.data"
             :active="item.data.id === activeId"
+            :show-country="channels.favoritesOnly"
             @select="emit('select')"
           />
         </div>

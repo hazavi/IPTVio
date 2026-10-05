@@ -5,8 +5,9 @@ import { cn } from '@/lib/utils'
 import { useFavoritesStore } from '@/stores/favorites'
 import type { Channel } from '@/types/iptv'
 import ChannelLogo from './ChannelLogo.vue'
+import CountryFlag from './CountryFlag.vue'
 
-const props = defineProps<{ channel: Channel; active: boolean }>()
+const props = defineProps<{ channel: Channel; active: boolean; showCountry?: boolean }>()
 const emit = defineEmits<{ select: [] }>()
 
 const favorites = useFavoritesStore()
@@ -42,9 +43,13 @@ const category = computed(() => {
           />
           <span class="truncate">{{ channel.name }}</span>
         </span>
-        <span v-if="category" class="block truncate text-[11px] text-muted-foreground">{{
-          category
-        }}</span>
+        <span
+          v-if="category || showCountry"
+          class="flex items-center gap-1.5 truncate text-[11px] text-muted-foreground"
+        >
+          <CountryFlag v-if="showCountry" :code="channel.country" class="h-3 w-4" />
+          {{ category }}
+        </span>
       </span>
     </RouterLink>
     <button
