@@ -101,10 +101,11 @@ Features and improvements, maybe :
 - Live TV guide (EPG) using the iptv-org guides data, with a "now playing" line per channel
 - Search across all countries, plus filters by language and by stream quality
 - Custom playlists and favorite folders, with import and export of favorites as JSON or M3U
-- Cast support (Chromecast and AirPlay) and subtitle or audio track selection
 - Multi-view mode to watch two or more channels side by side
 - Automatically hide streams that failed recently, with a "report broken stream" shortcut
 - Installable PWA with offline shell and a remembered last-watched channel
+- Desktop app (Electron)
+
 
 **Engineering**
 
@@ -112,4 +113,3 @@ Features and improvements, maybe :
 - Add unit tests for the catalog join and stores (Vitest) and end-to-end tests (Playwright)
 - Host the flag images locally instead of loading them from a CDN, and add a CI workflow for lint and build
 - Optional proxy or edge function to work around CORS and mixed-content streams
-- Sync favorites across devices with an optional account
