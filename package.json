@@ -2,7 +2,7 @@
   "name": "iptvio",
   "version": "1.0.0",
   "private": true,
-  "description": "Minimal IPTV web player",
+  "description": "IPTV web player built with Vue 3: pick a country, favorite channels, and watch live streams from iptv-org.",
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc -b && vite build",

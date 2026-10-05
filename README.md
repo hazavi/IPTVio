@@ -4,7 +4,7 @@
 
 # IPTVio
 
-A modern, minimal web player for live TV. Pick a country, choose a channel, and start watching, right in your browser.
+A soft, tactile web player for live TV. Pick a country, tap a channel, and watch free public streams from around the world, right in your browser.
 
 [![Vue 3](https://img.shields.io/badge/Vue-3-42b883?logo=vuedotjs&logoColor=white)](https://vuejs.org/)
 [![Vite](https://img.shields.io/badge/Vite-646cff?logo=vite&logoColor=white)](https://vite.dev/)
@@ -22,12 +22,14 @@ Channel data comes from the public [iptv-org API](https://iptv-org.github.io/). 
 
 ## Features
 
-- **Country picker**: searchable, with flags and channel counts. Your last choice is remembered.
-- **Channel browser**: fast search, category filters, favorites, and a recently watched list.
+- **Country picker**: searchable, with flag images and channel counts. Your last choice is remembered.
+- **Channel browser**: fast search, category filters with arrow scrolling, and a virtualized list that stays smooth with thousands of channels.
+- **Favorites from all countries**: star channels anywhere, then switch on the star filter to see every favorite in one list, each marked with its country flag.
 - **Live player**: quality selector, volume, fullscreen, picture-in-picture, and automatic retry. If a stream fails, it can switch to an alternative.
-- **Shareable links**: every channel has its own URL, `/watch/:countryCode/:channelId`.
+- **Recently watched** and **shareable links**: every channel has its own URL, `/watch/:countryCode/:channelId`.
 - **Light and dark themes**: follows your system by default.
 - **Responsive**: sidebar on desktop, bottom sheet on mobile.
+
 
 ### Keyboard shortcuts
 
@@ -62,8 +64,10 @@ Then open the URL printed in the terminal (usually http://localhost:5173).
 - [Vue 3](https://vuejs.org/), [Vite](https://vite.dev/), TypeScript
 - [Pinia](https://pinia.vuejs.org/) and [Vue Router](https://router.vuejs.org/)
 - [Tailwind CSS](https://tailwindcss.com/) v4 with [Reka UI](https://reka-ui.com/) primitives
-- [Lucide](https://lucide.dev/) icons
+- [Lucide](https://lucide.dev/) icons and [flagcdn](https://flagcdn.com/) country flags
 - [hls.js](https://github.com/video-dev/hls.js) for playback and [VueUse](https://vueuse.org/) for utilities
+
+The design takes cues from [21st.dev](https://21st.dev/), re-implemented in Vue since 21st.dev components are React.
 
 ## How it works
 
@@ -87,3 +91,31 @@ A stream may not play because it is offline, geo-blocked, blocked by CORS, or se
 ## Disclaimer
 
 IPTVio does not host, store, or control any video content. All streams are public third-party links, and their availability is not guaranteed.
+
+## Suggestions and ideas
+
+Features and improvements that would be good next steps:
+
+**Features**
+
+- Live TV guide (EPG) using the iptv-org guides data, with a "now playing" line per channel
+- Search across all countries, plus filters by language and by stream quality
+- Custom playlists and favorite folders, with import and export of favorites as JSON or M3U
+- Cast support (Chromecast and AirPlay) and subtitle or audio track selection
+- Multi-view mode to watch two or more channels side by side
+- Automatically hide streams that failed recently, with a "report broken stream" shortcut
+- Installable PWA with offline shell and a remembered last-watched channel
+
+**UI and accessibility**
+
+- Accent color picker and a high-contrast mode, since soft shadows can be low contrast for some users
+- Respect `prefers-reduced-motion` and add a compact list density option
+- Keyboard-navigable channel list with full screen-reader announcements for live updates
+
+**Engineering**
+
+- Code-split `hls.js` with a dynamic import to shrink the first load
+- Add unit tests for the catalog join and stores (Vitest) and end-to-end tests (Playwright)
+- Host the flag images locally instead of loading them from a CDN, and add a CI workflow for lint and build
+- Optional proxy or edge function to work around CORS and mixed-content streams
+- Sync favorites across devices with an optional account
