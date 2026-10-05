@@ -92,9 +92,9 @@ A stream may not play because it is offline, geo-blocked, blocked by CORS, or se
 
 IPTVio does not host, store, or control any video content. All streams are public third-party links, and their availability is not guaranteed.
 
-## Suggestions and ideas
+## Roadmap
 
-Features and improvements that would be good next steps:
+Features and improvements, maybe :
 
 **Features**
 
@@ -105,12 +105,6 @@ Features and improvements that would be good next steps:
 - Multi-view mode to watch two or more channels side by side
 - Automatically hide streams that failed recently, with a "report broken stream" shortcut
 - Installable PWA with offline shell and a remembered last-watched channel
-
-**UI and accessibility**
-
-- Accent color picker and a high-contrast mode, since soft shadows can be low contrast for some users
-- Respect `prefers-reduced-motion` and add a compact list density option
-- Keyboard-navigable channel list with full screen-reader announcements for live updates
 
 **Engineering**
 
