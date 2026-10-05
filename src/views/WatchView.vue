@@ -9,6 +9,7 @@ import { useCountriesStore } from '@/stores/countries'
 import { useFavoritesStore } from '@/stores/favorites'
 import { usePlayerStore } from '@/stores/player'
 import ChannelLogo from '@/components/ChannelLogo.vue'
+import CountryFlag from '@/components/CountryFlag.vue'
 import VideoPlayer from '@/components/VideoPlayer.vue'
 import Button from '@/components/ui/Button.vue'
 import Skeleton from '@/components/ui/Skeleton.vue'
@@ -64,8 +65,11 @@ function go(offset: number) {
           <ChannelLogo :name="channel.name" :src="channel.logo" class="size-11" />
           <div class="min-w-0 flex-1 space-y-1">
             <h1 class="truncate text-xl font-semibold tracking-tight">{{ channel.name }}</h1>
-            <p class="truncate text-sm text-muted-foreground capitalize">
-              <span v-if="country">{{ country.flag }} {{ country.name }}</span>
+            <p class="flex items-center gap-1.5 truncate text-sm text-muted-foreground capitalize">
+              <template v-if="country">
+                <CountryFlag :code="country.code" />
+                <span>{{ country.name }}</span>
+              </template>
               <template v-if="channel.categories.length">
                 · {{ channel.categories.join(', ') }}
               </template>

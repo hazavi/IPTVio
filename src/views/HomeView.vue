@@ -4,6 +4,7 @@ import { Clock } from 'lucide-vue-next'
 import { usePlayerStore } from '@/stores/player'
 import { useCountriesStore } from '@/stores/countries'
 import ChannelLogo from '@/components/ChannelLogo.vue'
+import CountryFlag from '@/components/CountryFlag.vue'
 
 const player = usePlayerStore()
 const countries = useCountriesStore()
@@ -51,7 +52,8 @@ const hint = computed(() =>
             class="flex items-center gap-3 rounded-2xl bg-background p-3 nm-raised-sm transition-shadow duration-200 hover:text-primary active:nm-inset-sm"
           >
             <ChannelLogo :name="c.name" :src="c.logo" />
-            <span class="truncate text-sm font-medium">{{ c.name }}</span>
+            <span class="min-w-0 flex-1 truncate text-sm font-medium">{{ c.name }}</span>
+            <CountryFlag :code="c.country" />
           </RouterLink>
         </li>
       </ul>

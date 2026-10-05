@@ -14,6 +14,7 @@ import { Check, ChevronsUpDown, Globe, Search } from 'lucide-vue-next'
 import { useCountriesStore } from '@/stores/countries'
 import { useCatalogStore } from '@/stores/catalog'
 import Skeleton from '@/components/ui/Skeleton.vue'
+import CountryFlag from './CountryFlag.vue'
 
 const store = useCountriesStore()
 const catalog = useCatalogStore()
@@ -53,7 +54,7 @@ function onSelect(code: unknown) {
       aria-label="Select country"
     >
       <template v-if="store.selected">
-        <span class="text-base leading-none" aria-hidden="true">{{ store.selected.flag }}</span>
+        <CountryFlag :code="store.selected.code" />
         <span class="flex-1 truncate font-medium">{{ store.selected.name }}</span>
       </template>
       <template v-else>
@@ -91,7 +92,7 @@ function onSelect(code: unknown) {
               :value="c.code"
               class="flex items-center gap-2 rounded-xl px-2.5 py-2 text-sm outline-none data-highlighted:nm-raised-xs"
             >
-              <span class="text-base leading-none" aria-hidden="true">{{ c.flag }}</span>
+              <CountryFlag :code="c.code" />
               <span class="flex-1 truncate">{{ c.name }}</span>
               <span class="text-xs text-muted-foreground tabular-nums">{{ c.channelCount }}</span>
               <Check v-if="c.code === store.selectedCode" class="size-4 text-primary" />
