@@ -4,7 +4,6 @@ import { Star } from 'lucide-vue-next'
 import { cn } from '@/lib/utils'
 import { useFavoritesStore } from '@/stores/favorites'
 import type { Channel } from '@/types/iptv'
-import Badge from '@/components/ui/Badge.vue'
 import ChannelLogo from './ChannelLogo.vue'
 
 const props = defineProps<{ channel: Channel; active: boolean }>()
@@ -19,27 +18,37 @@ const category = computed(() => {
 </script>
 
 <template>
-  <div class="relative h-14">
+  <div class="group relative h-14">
     <RouterLink
       :to="{ name: 'watch', params: { countryCode: channel.country, channelId: channel.id } }"
       :aria-current="active ? 'true' : undefined"
       :class="
         cn(
           'flex h-full items-center gap-3 rounded-xl px-2 pr-11 transition-colors duration-150 hover:bg-accent',
-          active && 'bg-accent',
+          active && 'bg-primary/10 hover:bg-primary/10',
         )
       "
       @click="emit('select')"
     >
       <ChannelLogo :name="channel.name" :src="channel.logo" />
       <span class="min-w-0 flex-1">
-        <span class="block truncate text-sm font-medium">{{ channel.name }}</span>
-        <Badge v-if="category" class="mt-0.5">{{ category }}</Badge>
+        <span :class="cn('block truncate text-sm font-medium', active && 'text-primary')">{{
+          channel.name
+        }}</span>
+        <span v-if="category" class="block truncate text-xs text-muted-foreground">{{
+          category
+        }}</span>
       </span>
     </RouterLink>
     <button
       type="button"
-      class="absolute top-1/2 right-2 grid size-8 -translate-y-1/2 place-items-center rounded-lg text-muted-foreground transition-colors duration-150 hover:bg-background hover:text-foreground"
+      :class="
+        cn(
+          'absolute top-1/2 right-2 grid size-8 -translate-y-1/2 place-items-center rounded-lg text-muted-foreground transition duration-150 hover:text-foreground',
+          !isFavorite &&
+            'pointer-fine:opacity-0 pointer-fine:group-hover:opacity-100 pointer-fine:focus-visible:opacity-100',
+        )
+      "
       :aria-label="
         isFavorite ? `Remove ${channel.name} from favorites` : `Add ${channel.name} to favorites`
       "

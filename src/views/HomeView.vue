@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue'
-import { Clock, Globe } from 'lucide-vue-next'
+import { Clock } from 'lucide-vue-next'
 import { usePlayerStore } from '@/stores/player'
 import { useCountriesStore } from '@/stores/countries'
 import ChannelLogo from '@/components/ChannelLogo.vue'
@@ -16,11 +16,9 @@ const hint = computed(() =>
 
 <template>
   <div class="mx-auto flex max-w-3xl flex-col items-center gap-10 pt-10 text-center md:pt-20">
-    <div class="space-y-3">
-      <span class="mx-auto grid size-12 place-items-center rounded-2xl border bg-card">
-        <Globe class="size-6 text-primary" />
-      </span>
-      <h1 class="text-2xl font-semibold tracking-tight text-balance md:text-3xl">
+    <div class="space-y-4">
+      <img src="/logo.png" alt="" class="mx-auto size-20" />
+      <h1 class="text-2xl font-semibold tracking-tight text-balance md:text-4xl">
         Live TV from around the world
       </h1>
       <p class="text-sm text-muted-foreground">{{ hint }}</p>

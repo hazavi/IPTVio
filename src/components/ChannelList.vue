@@ -3,13 +3,13 @@ import { computed, ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import { useDebounceFn, useVirtualList } from '@vueuse/core'
 import { Search, Star, TvMinimal } from 'lucide-vue-next'
-import { cn } from '@/lib/utils'
 import { useCatalogStore } from '@/stores/catalog'
 import { useChannelsStore } from '@/stores/channels'
 import { useCountriesStore } from '@/stores/countries'
 import Button from '@/components/ui/Button.vue'
 import Input from '@/components/ui/Input.vue'
 import Skeleton from '@/components/ui/Skeleton.vue'
+import CategoryChips from './CategoryChips.vue'
 import ChannelCard from './ChannelCard.vue'
 
 const emit = defineEmits<{ select: [] }>()
@@ -25,6 +25,7 @@ watch(searchInput, applySearch)
 
 const activeId = computed(() => (route.name === 'watch' ? String(route.params.channelId) : null))
 const source = computed(() => channels.filtered)
+const chips = computed(() => [{ id: null, name: 'All' }, ...channels.availableCategories])
 
 const { list, containerProps, wrapperProps, scrollTo } = useVirtualList(source, {
   itemHeight: 56,
@@ -44,42 +45,25 @@ watch(source, () => scrollTo(0))
 <template>
   <div class="flex h-full min-h-0 flex-col gap-3">
     <div class="space-y-3 px-1">
-      <div class="relative">
-        <Search
-          class="pointer-events-none absolute top-1/2 left-3 size-4 -translate-y-1/2 text-muted-foreground"
-        />
-        <Input
-          v-model="searchInput"
-          type="search"
-          placeholder="Search channels"
-          aria-label="Search channels"
-          class="pl-9"
-          :disabled="!countries.selected"
-        />
-      </div>
-
-      <div v-if="countries.selected" class="flex items-center gap-2">
-        <div class="flex min-w-0 flex-1 gap-1.5 overflow-x-auto pb-1 [scrollbar-width:none]">
-          <button
-            v-for="cat in [{ id: null, name: 'All' }, ...channels.availableCategories]"
-            :key="cat.id ?? 'all'"
-            type="button"
-            :aria-pressed="channels.category === cat.id"
-            :class="
-              cn(
-                'shrink-0 rounded-full border px-3 py-1 text-xs font-medium transition-colors duration-150 hover:bg-accent',
-                channels.category === cat.id &&
-                  'border-transparent bg-primary text-primary-foreground hover:bg-primary/90',
-              )
-            "
-            @click="channels.category = cat.id"
-          >
-            {{ cat.name }}
-          </button>
+      <div class="flex items-center gap-2">
+        <div class="relative flex-1">
+          <Search
+            class="pointer-events-none absolute top-1/2 left-3 size-4 -translate-y-1/2 text-muted-foreground"
+          />
+          <Input
+            v-model="searchInput"
+            type="search"
+            placeholder="Search channels"
+            aria-label="Search channels"
+            class="pl-9"
+            :disabled="!countries.selected"
+          />
         </div>
         <Button
           variant="outline"
-          size="icon-sm"
+          size="icon"
+          class="size-10"
+          :disabled="!countries.selected"
           :aria-pressed="channels.favoritesOnly"
           aria-label="Show favorites only"
           @click="channels.favoritesOnly = !channels.favoritesOnly"
@@ -87,6 +71,8 @@ watch(source, () => scrollTo(0))
           <Star :class="channels.favoritesOnly && 'fill-amber-400 text-amber-400'" />
         </Button>
       </div>
+
+      <CategoryChips v-if="countries.selected" v-model="channels.category" :items="chips" />
     </div>
 
     <div

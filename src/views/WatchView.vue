@@ -10,7 +10,6 @@ import { useFavoritesStore } from '@/stores/favorites'
 import { usePlayerStore } from '@/stores/player'
 import ChannelLogo from '@/components/ChannelLogo.vue'
 import VideoPlayer from '@/components/VideoPlayer.vue'
-import Badge from '@/components/ui/Badge.vue'
 import Button from '@/components/ui/Button.vue'
 import Skeleton from '@/components/ui/Skeleton.vue'
 
@@ -62,12 +61,14 @@ function go(offset: number) {
 
       <section class="flex items-start gap-4" aria-label="Channel info">
         <ChannelLogo :name="channel.name" :src="channel.logo" class="size-14" />
-        <div class="min-w-0 flex-1 space-y-2">
+        <div class="min-w-0 flex-1 space-y-1">
           <h1 class="truncate text-xl font-semibold tracking-tight">{{ channel.name }}</h1>
-          <div class="flex flex-wrap items-center gap-1.5 text-sm text-muted-foreground">
+          <p class="truncate text-sm text-muted-foreground capitalize">
             <span v-if="country">{{ country.flag }} {{ country.name }}</span>
-            <Badge v-for="cat in channel.categories" :key="cat" class="capitalize">{{ cat }}</Badge>
-          </div>
+            <template v-if="channel.categories.length">
+              · {{ channel.categories.join(', ') }}
+            </template>
+          </p>
         </div>
         <div class="flex gap-2">
           <a

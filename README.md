@@ -1,37 +1,74 @@
 # IPTVio
 
-A minimal IPTV web player built with Vue 3. Pick a country, browse its channels, and watch live streams in the browser. Channel data comes from the public [iptv-org API](https://iptv-org.github.io/).
+A modern, minimal web player for live TV. Pick a country, choose a channel, and start watching, right in your browser.
 
-## Setup
-
-```bash
-npm i
-npm run dev      # start the dev server
-npm run build    # type-check and build for production
-npm run lint     # ESLint
-npm run format   # Prettier
-```
-
-## Stack
-
-Vue 3 (`<script setup>`), Vite, TypeScript, Pinia, Vue Router, Tailwind CSS v4, Reka UI primitives (the base of shadcn-vue), lucide-vue-next, hls.js, VueUse.
-
-The UI follows the visual patterns of [21st.dev](https://21st.dev/) (command palette, cards, badges, skeletons), re-implemented in Vue because 21st.dev components are React.
+Channel data comes from the public [iptv-org API](https://iptv-org.github.io/). No backend or account is required.
 
 ## Features
 
-- Searchable country combobox with flags and channel counts (last choice is remembered)
-- Virtualized channel list with search, category filter, and favorites
-- hls.js player: play/pause, volume, fullscreen, picture-in-picture, quality selector, auto-retry, fallback to alternative streams
-- Shortcuts: `Space` play/pause, `F` fullscreen, `M` mute, `↑`/`↓` previous/next channel
-- Light/dark theme (follows system by default), recently watched, shareable URLs: `/watch/:countryCode/:channelId`
+- **Country picker**: searchable, with flags and channel counts. Your last choice is remembered.
+- **Channel browser**: fast search, category filters, favorites, and a recently watched list.
+- **Live player**: quality selector, volume, fullscreen, picture-in-picture, and automatic retry. If a stream fails, it can switch to an alternative.
+- **Shareable links**: every channel has its own URL, `/watch/:countryCode/:channelId`.
+- **Light and dark themes**: follows your system by default.
+- **Responsive**: sidebar on desktop, bottom sheet on mobile.
 
-## Notes
+### Keyboard shortcuts
 
-- All streams are public third-party links. This app does not host, store, or control any content, and availability is not guaranteed.
-- The catalog (countries, channels, streams, logos) is fetched client-side and cached in IndexedDB for 24 hours.
-- Some streams fail because of CORS, geo-blocking, dead links, or plain `http://` URLs on an `https://` page. The player shows an error and offers alternative streams when available. Headers such as `Referer` and `User-Agent` listed in the API cannot be set from a browser.
+| Key       | Action                  |
+| --------- | ----------------------- |
+| `Space`   | Play / pause            |
+| `F`       | Fullscreen              |
+| `M`       | Mute                    |
+| `↑` / `↓` | Previous / next channel |
 
-### Optional CORS proxy
+## Getting started
 
-There is no backend by default. If a stream is blocked by CORS you can run a small proxy yourself (for example a Cloudflare Worker or a Node server that forwards the request and adds `Access-Control-Allow-Origin`), then prefix stream URLs with it in `src/api/iptv.ts`. Only proxy streams you are allowed to access.
+Requires Node.js 20 or later.
+
+```bash
+npm install
+npm run dev
+```
+
+Then open the URL printed in the terminal (usually http://localhost:5173).
+
+| Command           | Description                         |
+| ----------------- | ----------------------------------- |
+| `npm run dev`     | Start the development server        |
+| `npm run build`   | Type-check and build for production |
+| `npm run preview` | Preview the production build        |
+| `npm run lint`    | Lint with ESLint                    |
+| `npm run format`  | Format with Prettier                |
+
+## Tech stack
+
+- [Vue 3](https://vuejs.org/), [Vite](https://vite.dev/), TypeScript
+- [Pinia](https://pinia.vuejs.org/) and [Vue Router](https://router.vuejs.org/)
+- [Tailwind CSS](https://tailwindcss.com/) v4 with [Reka UI](https://reka-ui.com/) primitives
+- [Lucide](https://lucide.dev/) icons
+- [hls.js](https://github.com/video-dev/hls.js) for playback and [VueUse](https://vueuse.org/) for utilities
+
+
+## How it works
+
+On first load, the app fetches countries, channels, streams, and logos from the iptv-org API, joins them, and filters out adult and closed channels and channels without a stream. The result is cached in IndexedDB for 24 hours.
+
+```
+src/
+  api/          data fetching, caching, and joining
+  stores/       Pinia stores (catalog, countries, channels, player, favorites)
+  composables/  useHls, useShortcuts, useTheme
+  components/   UI components (ui/ holds the base primitives)
+  views/        Home and Watch pages
+```
+
+## Troubleshooting
+
+A stream may not play because it is offline, geo-blocked, blocked by CORS, or served over plain `http://` on an `https://` page. The player shows an error and offers another stream when one is available. Headers such as `Referer` and `User-Agent` from the API cannot be set by a browser.
+
+**Optional CORS proxy.** There is no backend by default. If you need one, run your own small proxy (for example a Cloudflare Worker) that adds `Access-Control-Allow-Origin`, and prefix stream URLs with it in `src/api/iptv.ts`. Only proxy streams you are allowed to access.
+
+## Disclaimer
+
+IPTVio does not host, store, or control any video content. All streams are public third-party links, and their availability is not guaranteed.

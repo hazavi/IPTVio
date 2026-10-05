@@ -11,7 +11,7 @@ const model = defineModel<string>()
     v-model="model"
     :class="
       cn(
-        'h-9 w-full rounded-xl border bg-card px-3 text-sm transition-colors duration-150 placeholder:text-muted-foreground focus-visible:outline-2 focus-visible:-outline-offset-1',
+        'h-10 w-full rounded-xl border bg-card px-3 text-sm transition-colors duration-150 placeholder:text-muted-foreground focus-visible:outline-2 focus-visible:-outline-offset-1',
         $props.class,
       )
     "

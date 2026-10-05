@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { onMounted, ref, watchEffect } from 'vue'
-import { List, TvMinimal } from 'lucide-vue-next'
+import { List } from 'lucide-vue-next'
 import { useCatalogStore } from '@/stores/catalog'
 import { useTheme } from '@/composables/useTheme'
 import ChannelList from '@/components/ChannelList.vue'
@@ -19,18 +19,16 @@ onMounted(() => catalog.load())
 
 <template>
   <div class="flex h-dvh flex-col">
-    <header class="flex h-14 shrink-0 items-center justify-between border-b px-4">
-      <RouterLink to="/" class="flex items-center gap-2 rounded-lg font-semibold tracking-tight">
-        <span class="grid size-8 place-items-center rounded-xl bg-primary text-primary-foreground">
-          <TvMinimal class="size-4" />
-        </span>
-        IPTVio
+    <header class="flex h-14 shrink-0 items-center justify-between border-b px-4 md:px-6">
+      <RouterLink to="/" class="flex items-center gap-2.5 rounded-lg" aria-label="IPTVio home">
+        <img src="/logo.png" alt="" class="size-8" />
+        <span class="text-base font-semibold tracking-tight">IPTVio</span>
       </RouterLink>
       <ThemeToggle />
     </header>
 
-    <div class="grid min-h-0 flex-1 md:grid-cols-[22rem_1fr]">
-      <aside class="hidden min-h-0 flex-col gap-3 border-r p-3 md:flex" aria-label="Channels">
+    <div class="grid min-h-0 flex-1 md:grid-cols-[21rem_1fr]">
+      <aside class="hidden min-h-0 flex-col gap-4 border-r p-4 md:flex" aria-label="Channels">
         <CountryCombobox />
         <ChannelList class="min-h-0 flex-1" />
       </aside>
