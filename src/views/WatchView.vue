@@ -49,7 +49,7 @@ function go(offset: number) {
 </script>
 
 <template>
-  <div class="mx-auto max-w-5xl space-y-5">
+  <div class="mx-auto max-w-[88rem] space-y-3">
     <template v-if="channel">
       <VideoPlayer
         :src="player.currentStream?.url ?? null"
@@ -59,71 +59,73 @@ function go(offset: number) {
         @next-channel="go(1)"
       />
 
-      <section class="flex items-start gap-4" aria-label="Channel info">
-        <ChannelLogo :name="channel.name" :src="channel.logo" class="size-14" />
-        <div class="min-w-0 flex-1 space-y-1">
-          <h1 class="truncate text-xl font-semibold tracking-tight">{{ channel.name }}</h1>
-          <p class="truncate text-sm text-muted-foreground capitalize">
-            <span v-if="country">{{ country.flag }} {{ country.name }}</span>
-            <template v-if="channel.categories.length">
-              · {{ channel.categories.join(', ') }}
-            </template>
-          </p>
-        </div>
-        <div class="flex gap-2">
-          <a
-            v-if="channel.website"
-            :href="channel.website"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Open channel website"
-            class="inline-flex size-9 items-center justify-center rounded-xl border bg-card transition-colors duration-150 hover:bg-accent"
-          >
-            <ExternalLink class="size-4" />
-          </a>
-          <Button
-            variant="outline"
-            size="icon"
-            :aria-pressed="favorites.has(channel.id)"
-            :aria-label="favorites.has(channel.id) ? 'Remove from favorites' : 'Add to favorites'"
-            @click="favorites.toggle(channel.id)"
-          >
-            <Star :class="favorites.has(channel.id) && 'fill-amber-400 text-amber-400'" />
-          </Button>
-        </div>
-      </section>
+      <div class="space-y-3 rounded-2xl border bg-card p-3">
+        <section class="flex items-center gap-3" aria-label="Channel info">
+          <ChannelLogo :name="channel.name" :src="channel.logo" class="size-11" />
+          <div class="min-w-0 flex-1 space-y-1">
+            <h1 class="truncate text-xl font-semibold tracking-tight">{{ channel.name }}</h1>
+            <p class="truncate text-sm text-muted-foreground capitalize">
+              <span v-if="country">{{ country.flag }} {{ country.name }}</span>
+              <template v-if="channel.categories.length">
+                · {{ channel.categories.join(', ') }}
+              </template>
+            </p>
+          </div>
+          <div class="flex gap-2">
+            <a
+              v-if="channel.website"
+              :href="channel.website"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Open channel website"
+              class="inline-flex size-9 items-center justify-center rounded-xl border bg-card transition-colors duration-150 hover:bg-accent"
+            >
+              <ExternalLink class="size-4" />
+            </a>
+            <Button
+              variant="outline"
+              size="icon"
+              :aria-pressed="favorites.has(channel.id)"
+              :aria-label="favorites.has(channel.id) ? 'Remove from favorites' : 'Add to favorites'"
+              @click="favorites.toggle(channel.id)"
+            >
+              <Star :class="favorites.has(channel.id) && 'fill-amber-400 text-amber-400'" />
+            </Button>
+          </div>
+        </section>
 
-      <section
-        v-if="channel.streams.length > 1"
-        aria-labelledby="streams-heading"
-        class="space-y-2"
-      >
-        <h2
-          id="streams-heading"
-          class="text-xs font-medium tracking-wide text-muted-foreground uppercase"
+        <section
+          v-if="channel.streams.length > 1"
+          aria-labelledby="streams-heading"
+          class="space-y-2 border-t pt-3"
         >
-          Streams
-        </h2>
-        <div class="flex flex-wrap gap-2">
-          <button
-            v-for="(s, i) in channel.streams"
-            :key="s.url"
-            type="button"
-            :aria-pressed="player.streamIndex === i"
-            :class="
-              cn(
-                'rounded-xl border px-3 py-1.5 text-xs font-medium transition-colors duration-150 hover:bg-accent',
-                player.streamIndex === i &&
-                  'border-transparent bg-primary text-primary-foreground hover:bg-primary/90',
-              )
-            "
-            @click="player.streamIndex = i"
+          <h2
+            id="streams-heading"
+            class="text-xs font-medium tracking-wide text-muted-foreground uppercase"
           >
-            Stream {{ i + 1 }}<template v-if="s.quality"> · {{ s.quality }}</template>
-            <template v-if="s.labels.length"> · {{ s.labels.join(', ') }}</template>
-          </button>
-        </div>
-      </section>
+            Streams
+          </h2>
+          <div class="flex flex-wrap gap-2">
+            <button
+              v-for="(s, i) in channel.streams"
+              :key="s.url"
+              type="button"
+              :aria-pressed="player.streamIndex === i"
+              :class="
+                cn(
+                  'rounded-xl border px-3 py-1.5 text-xs font-medium transition-colors duration-150 hover:bg-accent',
+                  player.streamIndex === i &&
+                    'border-transparent bg-primary text-primary-foreground hover:bg-primary/90',
+                )
+              "
+              @click="player.streamIndex = i"
+            >
+              Stream {{ i + 1 }}<template v-if="s.quality"> · {{ s.quality }}</template>
+              <template v-if="s.labels.length"> · {{ s.labels.join(', ') }}</template>
+            </button>
+          </div>
+        </section>
+      </div>
     </template>
 
     <div v-else-if="notFound" class="flex flex-col items-center gap-3 py-24 text-center">
@@ -134,9 +136,9 @@ function go(offset: number) {
       <Button variant="outline" size="sm" @click="router.push('/')">Back home</Button>
     </div>
 
-    <div v-else class="space-y-5" aria-busy="true">
+    <div v-else class="space-y-3" aria-busy="true">
       <Skeleton class="aspect-video w-full rounded-2xl" />
-      <Skeleton class="h-14 w-full" />
+      <Skeleton class="h-[4.5rem] w-full rounded-2xl" />
     </div>
   </div>
 </template>

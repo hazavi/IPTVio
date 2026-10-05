@@ -46,10 +46,10 @@ function onSelect(code: unknown) {
 </script>
 
 <template>
-  <Skeleton v-if="catalog.loading && !store.countries.length" class="h-10 w-full" />
+  <Skeleton v-if="catalog.loading && !store.countries.length" class="h-9 w-full" />
   <PopoverRoot v-else v-model:open="open">
     <PopoverTrigger
-      class="flex h-10 w-full items-center gap-2 rounded-xl border bg-card px-3 text-left text-sm transition-colors duration-150 hover:bg-accent"
+      class="flex h-9 w-full items-center gap-2 rounded-xl border bg-card px-3 text-left text-sm transition-colors duration-150 hover:bg-accent"
       aria-label="Select country"
     >
       <template v-if="store.selected">

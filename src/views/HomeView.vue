@@ -15,10 +15,10 @@ const hint = computed(() =>
 </script>
 
 <template>
-  <div class="mx-auto flex max-w-3xl flex-col items-center gap-10 pt-10 text-center md:pt-20">
-    <div class="space-y-4">
-      <img src="/logo.png" alt="" class="mx-auto size-20" />
-      <h1 class="text-2xl font-semibold tracking-tight text-balance md:text-4xl">
+  <div class="mx-auto flex max-w-4xl flex-col items-center gap-6 pt-4 text-center md:pt-12">
+    <div class="space-y-3">
+      <img src="/logo.png" alt="" class="mx-auto size-16" />
+      <h1 class="text-2xl font-semibold tracking-tight text-balance md:text-3xl">
         Live TV from around the world
       </h1>
       <p class="text-sm text-muted-foreground">{{ hint }}</p>
@@ -27,15 +27,15 @@ const hint = computed(() =>
     <section v-if="player.recent.length" class="w-full text-left" aria-labelledby="recent-heading">
       <h2
         id="recent-heading"
-        class="mb-3 flex items-center gap-2 text-sm font-medium text-muted-foreground"
+        class="mb-2 flex items-center gap-2 text-sm font-medium text-muted-foreground"
       >
         <Clock class="size-4" /> Recently watched
       </h2>
-      <ul class="grid grid-cols-1 gap-2 sm:grid-cols-2">
+      <ul class="grid grid-cols-1 gap-2 sm:grid-cols-2 lg:grid-cols-3">
         <li v-for="c in player.recent" :key="c.id">
           <RouterLink
             :to="{ name: 'watch', params: { countryCode: c.country, channelId: c.id } }"
-            class="flex items-center gap-3 rounded-xl border bg-card p-2.5 transition-colors duration-150 hover:bg-accent"
+            class="flex items-center gap-2.5 rounded-xl border bg-card p-2 transition-colors duration-150 hover:bg-accent"
           >
             <ChannelLogo :name="c.name" :src="c.logo" />
             <span class="truncate text-sm font-medium">{{ c.name }}</span>

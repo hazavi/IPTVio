@@ -28,7 +28,7 @@ const source = computed(() => channels.filtered)
 const chips = computed(() => [{ id: null, name: 'All' }, ...channels.availableCategories])
 
 const { list, containerProps, wrapperProps, scrollTo } = useVirtualList(source, {
-  itemHeight: 56,
+  itemHeight: 52,
   overscan: 8,
 })
 
@@ -43,8 +43,8 @@ watch(source, () => scrollTo(0))
 </script>
 
 <template>
-  <div class="flex h-full min-h-0 flex-col gap-3">
-    <div class="space-y-3 px-1">
+  <div class="flex h-full min-h-0 flex-col gap-2.5">
+    <div class="space-y-2.5">
       <div class="flex items-center gap-2">
         <div class="relative flex-1">
           <Search
@@ -62,7 +62,7 @@ watch(source, () => scrollTo(0))
         <Button
           variant="outline"
           size="icon"
-          class="size-10"
+          class="size-9"
           :disabled="!countries.selected"
           :aria-pressed="channels.favoritesOnly"
           aria-label="Show favorites only"
@@ -75,13 +75,8 @@ watch(source, () => scrollTo(0))
       <CategoryChips v-if="countries.selected" v-model="channels.category" :items="chips" />
     </div>
 
-    <div
-      v-if="catalog.loading"
-      class="space-y-1 px-1"
-      aria-busy="true"
-      aria-label="Loading channels"
-    >
-      <Skeleton v-for="i in 8" :key="i" class="h-14" />
+    <div v-if="catalog.loading" class="space-y-1" aria-busy="true" aria-label="Loading channels">
+      <Skeleton v-for="i in 8" :key="i" class="h-12" />
     </div>
 
     <div v-else-if="catalog.error" class="flex flex-col items-center gap-3 px-4 py-10 text-center">
@@ -99,20 +94,14 @@ watch(source, () => scrollTo(0))
 
     <div
       v-else-if="!channels.filtered.length"
-      class="px-4 py-10 text-center text-sm text-muted-foreground"
+      class="px-4 py-6 text-center text-sm text-muted-foreground"
     >
       No channels match your filters.
     </div>
 
-    <div
-      v-else
-      v-bind="containerProps"
-      class="min-h-0 flex-1 px-1"
-      role="list"
-      aria-label="Channels"
-    >
+    <div v-else v-bind="containerProps" class="min-h-0 flex-1" role="list" aria-label="Channels">
       <div v-bind="wrapperProps">
-        <div v-for="item in list" :key="item.data.id" role="listitem" class="h-14">
+        <div v-for="item in list" :key="item.data.id" role="listitem" class="h-13">
           <ChannelCard
             :channel="item.data"
             :active="item.data.id === activeId"

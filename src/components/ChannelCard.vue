@@ -18,19 +18,19 @@ const category = computed(() => {
 </script>
 
 <template>
-  <div class="group relative h-14">
+  <div class="group relative h-13">
     <RouterLink
       :to="{ name: 'watch', params: { countryCode: channel.country, channelId: channel.id } }"
       :aria-current="active ? 'true' : undefined"
       :class="
         cn(
-          'flex h-full items-center gap-3 rounded-xl px-2 pr-11 transition-colors duration-150 hover:bg-accent',
+          'flex h-full items-center gap-2.5 rounded-lg px-2 pr-10 transition-colors duration-150 hover:bg-accent',
           active && 'bg-primary/10 hover:bg-primary/10',
         )
       "
       @click="emit('select')"
     >
-      <ChannelLogo :name="channel.name" :src="channel.logo" />
+      <ChannelLogo :name="channel.name" :src="channel.logo" class="size-9" />
       <span class="min-w-0 flex-1">
         <span :class="cn('block truncate text-sm font-medium', active && 'text-primary')">{{
           channel.name
