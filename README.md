@@ -20,8 +20,6 @@ A soft, tactile web player for live TV. Pick a country, tap a channel, and watch
 
 </div>
 
-Channel data comes from the public [iptv-org API](https://iptv-org.github.io/). No backend or account is required.
-
 ## Features
 
 - **Country picker**: searchable, with flag images and channel counts. Your last choice is remembered.
@@ -72,8 +70,6 @@ Pushes to `main` deploy the production build to GitHub Pages through `.github/wo
 - [Tailwind CSS](https://tailwindcss.com/) v4 with [Reka UI](https://reka-ui.com/) primitives
 - [Lucide](https://lucide.dev/) icons and [flagcdn](https://flagcdn.com/) country flags
 - [hls.js](https://github.com/video-dev/hls.js) for playback and [VueUse](https://vueuse.org/) for utilities
-
-The design takes cues from [21st.dev](https://21st.dev/), re-implemented in Vue since 21st.dev components are React.
 
 ## How it works
 
